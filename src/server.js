@@ -17,10 +17,15 @@ var corsOptions = {
   };
 
 // wtf?
-app.use(cors(corsOptions));
+//app.use(cors(corsOptions));
 
 
 app.use("/", router);
+
+//const db = require("./models");
+//db.sequelize.sync({ force: true })
+//    .then(() => { console.log("sync done") })
+//    .catch((err) => { console.log("" + err.message) })
 
 router.post("/register", (req, res) => {
     console.log(req.body);
