@@ -34,6 +34,8 @@ sequelize.authenticate().then(() => {
  sequelize.sync({force: true}).then(() => {
     console.log("user added!");
 
+    // code that is actually doing shit
+
     User.create({
         username: "Dota2 enjoyer",
         password: "no biches"
@@ -42,6 +44,8 @@ sequelize.authenticate().then(() => {
     }).catch((err) => {
         console.log(err)
     });
+
+    // end
 
  }).catch((err) => {
     console.log(err);
