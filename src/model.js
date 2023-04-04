@@ -1,9 +1,4 @@
-import express from "express";
-import dotenv from "dotenv"
-dotenv.config();
-const PORT = process.env.API_PORT;
-const app = express();
-const router = express.Router();
+import { Sequelize, DataTypes } from 'sequelize';
 
 const DB_NAME = "yoma";
 const DB_USER = "root";
@@ -11,7 +6,6 @@ const DB_PASSWORD = "Freetime123$%^";
 const DB_HOST = "127.0.0.1";
 const DB_DIALECT = "mysql";
 
-import Sequelize from "sequelize";
 const sequelize = new Sequelize(
     DB_NAME,
     DB_USER,
@@ -28,22 +22,17 @@ sequelize.authenticate().then(() => {
     console.error('Unable to connect to the database: ', error);
  });
 
+ const User = sequelize.define("users", {
+    username: {
+        type: DataTypes.STRING
+    },
+    password: {
+        type: DataTypes.STRING
+    }
+ });
 
-
-app.use(express.json());
-
-app.use("/", router);
-
-
-router.post("/register", (req, res) => {
-    console.log(req.body);
-});
-
-router.get("/", (req, res) => {
-    req.send("test");
-});
-
-app.listen(PORT, () => {
-    console.log("listening on port: " + PORT);
-});
-
+ sequelize.sync({force: true}).then(() => {
+    console.log("user added!");
+ }).catch((err) => {
+    console.log(err);
+ });
